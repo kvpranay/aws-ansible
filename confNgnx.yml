@@ -1,0 +1,67 @@
+---
+
+- name: Configure Instance
+  hosts: launched
+  remote_user: ec2-user
+
+- tasks:
+   - file:
+       path: "/tmp/nginx"
+       state: directory
+       mode: 0755
+     become: yes
+     become_user: root
+
+   - name: Put the nginx.conf file in place
+     copy:
+       src: "templates/default.conf"
+       dest: "/tmp/nginx/nginx.conf"
+       mode: '0644'
+     become: yes
+     become_user: root
+
+   - name: Copy the default html
+     copy:
+       src: "defaults/"
+       dest: "/tmp/nginx/defaults"
+       mode: '0644'
+     become: yes
+     become_user: root
+
+   - name: create directory for conf.d nginx
+     file:
+       path: "/tmp/nginx/conf.d"
+       state: directory
+     become: yes
+     become_user: root
+
+   - name: deploy reverse proxy configurations
+     template:
+       src: "templates/reverse-proxy.conf.j2"
+       dest: "/tmp/nginx/conf.d/{{ item.config_name }}.conf"
+     with_items: "{{ nginx_reverse_proxy_proxies }}"
+     become: yes
+     become_user: root
+
+   - name: Start the nginx docker container
+     docker_container:
+       image: "nginx:1.12.2"
+       name: "nginx"
+       volumes:
+          - "/tmp/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+          - "/tmp/nginx/defaults:/usr/share/nginx/html:ro"
+          - "/tmp/nginx/conf.d:/etc/nginx/conf.d:ro"
+       ports: '80:80'
+       exposed_ports: '80'
+       state: 'started'
+       restart_policy: 'always'
+       log_driver: 'syslog'
+       log_options:
+         tag: "nginx"
+     become: yes
+     become_user: root
+
+   - name: wait for tcp 80 to be up
+     wait_for:
+       host: localhost
+       port: 80

@@ -1,0 +1,12 @@
+---
+
+# Provision and Configure EC2 Instance
+- include: configEc2.yml
+
+# Congigure Docker Container
+- include: configDocker.yml
+
+# Deploy Nginx Container
+- include: confNgnx.yml
+
+

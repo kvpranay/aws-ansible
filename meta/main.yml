@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Pranay Katta
+  description: |
+    Ansible role to create ec2 instance install docker and install nginx.
+  min_ansible_version: 2.0
+  platforms:
+    - name: Centos
+      versions:
+       - trusty
+  galaxy_tags:
+    - docker
+    - centos
+    - nginx
+dependencies: []
