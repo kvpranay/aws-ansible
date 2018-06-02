@@ -1,5 +1,7 @@
 ---
 
+# configures Nginx container
+
 - name: Configure Instance
   hosts: launched
   remote_user: ec2-user

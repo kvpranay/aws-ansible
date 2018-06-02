@@ -1,5 +1,7 @@
 ---
 
+# Creates Ec2 instance and enables the firewall
+
 - name: Create my instance
   hosts: localhost
   gather_facts: False
