@@ -63,7 +63,7 @@
      become: yes
      become_user: root
 
-   - name: wait for tcp 80 to be up
-     wait_for:
-       host: localhost
-       port: 80
+#   - name: wait for tcp 80 to be up
+#     wait_for:
+#       host: localhost
+#       port: 80
