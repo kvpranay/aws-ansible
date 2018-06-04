@@ -6,7 +6,7 @@
   hosts: launched
   remote_user: ec2-user
 
-- tasks:
+  tasks:
    - file:
        path: "/tmp/nginx"
        state: directory
