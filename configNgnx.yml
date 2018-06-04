@@ -16,7 +16,7 @@
         - "python-devel"
         - "python-pip"
         - "openssl-devel"
-        - "libffi-devel
+        - "libffi-devel"
         - "libselinux-python"
 
    - name: install docker-py requirement to manage containers
