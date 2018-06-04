@@ -20,7 +20,7 @@
      shell: 'python get-pip.py'
      args:
       chdir: /tmp/
-     ignore_erros: true
+     ignore_errors: yes
      become: yes
      become_user: root
      register: installpip
