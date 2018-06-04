@@ -14,11 +14,11 @@
       state: present
      with_items:
         - "python-devel"
-	- "python-pip"
-	- "openssl-devel"
-	- "libffi-devel
-	- "libselinux-python"
-	
+        - "python-pip"
+        - "openssl-devel"
+        - "libffi-devel
+        - "libselinux-python"
+
    - name: install docker-py requirement to manage containers
      pip:
       name: docker-py
