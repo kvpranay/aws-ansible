@@ -25,20 +25,22 @@
      become_user: root
      register: installpip
 
-   - name: Install system requirements for docker-py
-     yum:
-      name: "{{ item }}"
-      state: present
-     with_items:
-        - "python-devel"
-        - "openssl-devel"
-        - "libffi-devel"
-        - "libselinux-python"
+#   - name: Install system requirements for docker-py
+#     yum:
+#      name: "{{ item }}"
+#      state: present
+#     with_items:
+#        - "python-devel"
+#        - "openssl-devel"
+#        - "libffi-devel"
+#        - "libselinux-python"
 
    - name: install docker-py requirement to manage containers
      pip:
       name: docker-py
-      state: present	
+      state: present
+     become: yes
+     become_user: root
 
    - file:
        path: "/tmp/nginx"
