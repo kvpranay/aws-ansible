@@ -17,8 +17,9 @@
      register: pythonpy_download
 
    - name: install python-pip
-     shell: "python get-pip.py"
-      chdir: "/tmp/"
+     shell: 'python get-pip.py'
+     args:
+      chdir: /tmp/
      ignore_erros: true
      become: yes
      become_user: root
