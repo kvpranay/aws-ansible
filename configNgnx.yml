@@ -8,13 +8,28 @@
 
   tasks:
 
+   - name: retrieve python-py
+     get_url:
+      url: "https://bootstrap.pypa.io/get-pip.py"
+      dest: "/tmp/get-pip.py"
+      validate_certs: no
+      timeout: "{{ geturlTimeout|int }}"
+     register: pythonpy_download
+
+   - name: install python-pip
+     shell: "python get-pip.py"
+      chdir: "/tmp/"
+     ignore_erros: true
+     become: yes
+     become_user: root
+     register: installpip
+
    - name: Install system requirements for docker-py
-     package:
+     yum:
       name: "{{ item }}"
       state: present
      with_items:
         - "python-devel"
-        - "python-pip"
         - "openssl-devel"
         - "libffi-devel"
         - "libselinux-python"
