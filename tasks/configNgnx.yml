@@ -41,7 +41,7 @@
 
    - name: Put the nginx.conf file in place
      copy:
-       src: "templates/default.conf"
+       src: "../templates/default.conf"
        dest: "/tmp/nginx/nginx.conf"
        mode: '0644'
      become: yes
@@ -49,7 +49,7 @@
 
    - name: Copy the default html
      copy:
-       src: "defaults/"
+       src: "../files/defaults/"
        dest: "/tmp/nginx/defaults"
        mode: '0644'
      become: yes
@@ -64,7 +64,7 @@
 
    - name: deploy reverse proxy configurations
      template:
-       src: "templates/reverse-proxy.conf.j2"
+       src: "../templates/reverse-proxy.conf.j2"
        dest: "/tmp/nginx/conf.d/{{ item.config_name }}.conf"
      with_items: "{{ nginx_reverse_proxy_proxies }}"
      become: yes
